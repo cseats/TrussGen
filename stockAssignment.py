@@ -121,9 +121,9 @@ def memOpt(stock,memLen):
     # Perform the optimization
         best_solution, best_fitness = genetic_algorithm_optimization_integer(example_function, num_vars, bounds,stock,memLen)
 
-    print("Best solution:", best_solution)
-    print("Best fitness:", best_fitness)
-    print('--------------------------------------')
+    # print("Best solution:", best_solution)
+    # print("Best fitness:", best_fitness)
+    # print('--------------------------------------')
     return best_solution, best_fitness
 
 
@@ -145,6 +145,9 @@ def assignPrep(memData,stockLib):
         stockOrder[r]['assign'] = best_solution
         stockOrder[r]['wasteVol'] = best_fitness
         stockOrder[r]['stockOptions'] = stockLen
+        
+        if best_fitness == 10000000:
+            return False
         
     return stockOrder
 def singleAssign(el,stock):

@@ -1,32 +1,40 @@
 import matplotlib.pyplot as plt
 import math
 
-def draw_truss2(elements, nodes):
-    fig, ax = plt.subplots()
+def draw_truss2(elements, nodes,fig, ax,xi,yi):
+    # fig, ax = plt.subplots()
     
     # Plot the nodes
     for node_id, coordinates in nodes.items():
         x, y = coordinates['loc']
+        
+        x += xi
+        y += yi
+        
         ax.plot(x, y, 'bo')  # 'bo' means blue circle
-        ax.text(x, y, f' {node_id}', fontsize=12, ha='right', color='blue')  # Label the nodes
+        # ax.text(x, y, f' {node_id}', fontsize=12, ha='right', color='blue')  # Label the nodes
     
     # Plot the elements
     for element_id, node_ids in elements.items():
         node1, node2 = node_ids['start'],node_ids['end']
-        x_values = [nodes[node1]['loc'][0], nodes[node2]['loc'][0]]
-        y_values = [nodes[node1]['loc'][1], nodes[node2]['loc'][1]]
+        x_values = [nodes[node1]['loc'][0]+xi, nodes[node2]['loc'][0]+xi]
+        y_values = [nodes[node1]['loc'][1]+yi, nodes[node2]['loc'][1]+yi]
+        # x_values += xi
+        # y_values += yi
+        
         ax.plot(x_values, y_values, 'r-')  # 'r-' means red line
         mid_x = (x_values[0] + x_values[1]) / 2
         mid_y = (y_values[0] + y_values[1]) / 2
-        ax.text(mid_x, mid_y, f'{element_id}', fontsize=12, ha='center', va='bottom', color='red')  # Label the elements
+        # ax.text(mid_x, mid_y, f'{element_id}', fontsize=12, ha='center', va='bottom', color='red')  # Label the elements
     
-    ax.set_aspect('equal', 'box')
-    plt.xlabel('X')
-    plt.ylabel('Y')
-    plt.title('Truss Structure')
-    plt.grid(True)
-    plt.show()
-    print("WHO IS DOG")
+    return fig,ax
+    # ax.set_aspect('equal', 'box')
+    # plt.xlabel('X')
+    # plt.ylabel('Y')
+    # plt.title('Truss Structure')
+    # plt.grid(True)
+    # plt.show()
+    # print("WHO IS DOG")
 def draw_truss(elements, nodes):
     fig, ax = plt.subplots()
     
@@ -114,7 +122,7 @@ def getSlopes(mems,nodeDict,memData):
     M = {}
     
     for i in range(1,len(memData)):
-        print(memData)
+        # print(memData)
         n1 = mems[memData[i]['name']]['head']
         n2 = mems[memData[i]['name']]['tail']
     # for name,mem in mems.items():
@@ -223,9 +231,9 @@ def forcediagram2Truss(polygons,mems,nodeDict):
             else:
                 xInit += 0.1
         
-    draw_truss2(memData, nodeData)
+    # draw_truss2(memData, nodeData)
     memData = calcMemLen(memData,nodeData)
-    print("DOG")
+    # print("DOG")
     return nodeData,memData
 
 def calcMemLen(mem,nodes):

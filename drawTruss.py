@@ -1,3 +1,5 @@
+import data
+
 import matplotlib.pyplot as plt
 import math
 
@@ -5,13 +7,15 @@ def draw_truss2(elements, nodes,fig, ax,xi,yi):
     # fig, ax = plt.subplots()
     
     # Plot the nodes
-    for node_id, coordinates in nodes.items():
-        x, y = coordinates['loc']
+    # for node_id, coordinates in nodes.items():
+    #     x, y = coordinates['loc']
         
-        x += xi
-        y += yi
+    #     x += xi
+    #     y += yi
         
-        ax.plot(x, y, 'bo')  # 'bo' means blue circle
+    #     ax.plot(x, y, 'bo')  # 'bo' means blue circle
+        
+        
         # ax.text(x, y, f' {node_id}', fontsize=12, ha='right', color='blue')  # Label the nodes
     
     # Plot the elements
@@ -22,7 +26,7 @@ def draw_truss2(elements, nodes,fig, ax,xi,yi):
         # x_values += xi
         # y_values += yi
         
-        ax.plot(x_values, y_values, 'r-')  # 'r-' means red line
+        ax.plot(x_values, y_values, color='k')  # 'r-' means red line
         mid_x = (x_values[0] + x_values[1]) / 2
         mid_y = (y_values[0] + y_values[1]) / 2
         # ax.text(mid_x, mid_y, f'{element_id}', fontsize=12, ha='center', va='bottom', color='red')  # Label the elements
@@ -146,7 +150,7 @@ def getSlopes(mems,nodeDict,memData):
         
     return memData
 def getSym(nodeData):
-    symmetryMapNode = {6:2,7:3,8:1}
+    symmetryMapNode = data.getNodeSym()#{6:2,7:3,8:1}
     symLine = nodeData[5]['loc'][0]
     for new,ref in symmetryMapNode.items():
         
@@ -155,35 +159,33 @@ def getSym(nodeData):
         nodeData[new] = {"loc": [refCords[0]+xDelta*2,refCords[1]]}
     return nodeData
 def forcediagram2Truss(polygons,mems,nodeDict):
-    memData = {
-    1:{'name':'1-e', 'start':1,'end':2,'slope':False},
-    2:{'name':'1-a', 'start':1,'end':3,'slope':False},
-    3:{'name':'2-1', 'start':2,'end':3,'slope':False},
-    4:{'name':'2-b', 'start':3,'end':4,'slope':False},
-    5:{'name':'3-2', 'start':2,'end':4,'slope':False},
-    6:{'name':'3-e', 'start':2,'end':5,'slope':False},
-    7:{'name':'3-4', 'start':4,'end':5,'slope':False, 'r':0.805,'mod':1},
+    # memData = {
+    # 1:{'name':'1-e', 'start':1,'end':2,'slope':False},
+    # 2:{'name':'1-a', 'start':1,'end':3,'slope':False},
+    # 3:{'name':'2-1', 'start':2,'end':3,'slope':False},
+    # 4:{'name':'2-b', 'start':3,'end':4,'slope':False},
+    # 5:{'name':'3-2', 'start':2,'end':4,'slope':False},
+    # 6:{'name':'3-e', 'start':2,'end':5,'slope':False},
+    # 7:{'name':'3-4', 'start':4,'end':5,'slope':False, 'r':0.805,'mod':1},
     
-    }
+    # }
+    memData,memSym = data.getMem()
     
     memData = getSlopes(mems,nodeDict,memData)
     
-    memData[8] = {'name':'1-e', 'start':4,'end':7,'slope':False,'r':memData[4]['r'],'mod':memData[4]['mod']}
-    memData[9] = {'name':'1-e', 'start':4,'end':6,'slope':False ,'r':memData[5]['r'],'mod':memData[5]['mod']}
-    memData[10] = {'name':'1-e', 'start':5,'end':6,'slope':False ,'r':memData[6]['r'],'mod':memData[6]['mod']}
-    memData[11] = {'name':'1-e', 'start':6,'end':7,'slope':False ,'r':memData[3]['r'],'mod':memData[3]['mod']}
-    memData[12] = {'name':'1-e', 'start':7,'end':8,'slope':False ,'r':memData[2]['r'],'mod':memData[2]['mod']}
-    memData[13] = {'name':'1-e', 'start':6,'end':8,'slope':False ,'r':memData[1]['r'],'mod':memData[1]['mod']}
-    # print(m)
+    for k,v in memSym.items():
+        
+        memData[k] = {'name':'1-e', 'start':v['nodes'][0],'end':v['nodes'][1],'slope':False,'r':memData[v['symMem']]['r'],'mod':memData[v['symMem']]['mod']}
     
-    initX = 1
-    p1 = [initX,0]
+    # memData[8] = {'name':'1-e', 'start':4,'end':7,'slope':False,'r':memData[4]['r'],'mod':memData[4]['mod']}
+    # memData[9] = {'name':'1-e', 'start':4,'end':6,'slope':False ,'r':memData[5]['r'],'mod':memData[5]['mod']}
+    # memData[10] = {'name':'1-e', 'start':5,'end':6,'slope':False ,'r':memData[6]['r'],'mod':memData[6]['mod']}
+    # memData[11] = {'name':'1-e', 'start':6,'end':7,'slope':False ,'r':memData[3]['r'],'mod':memData[3]['mod']}
+    # memData[12] = {'name':'1-e', 'start':7,'end':8,'slope':False ,'r':memData[2]['r'],'mod':memData[2]['mod']}
+    # memData[13] = {'name':'1-e', 'start':6,'end':8,'slope':False ,'r':memData[1]['r'],'mod':memData[1]['mod']}
+    # # print(m)
     
-    mOrder = [
-        ['1-2','a-1'],
-        ['2-3', 'b-2'],
-    ]
-    
+
     # find_intersection(origin, mOrder[], line2_point, line2_slope)
     cont = True
     xInit = 1
@@ -193,14 +195,17 @@ def forcediagram2Truss(polygons,mems,nodeDict):
         
         
         # xInit = 1
-        nodeData = {
-            1:{'name':'A-1', 'mems':False, 'loc': origin,'found':True},
-            2:{'name':'E-1', 'mems':[1], 'loc': [xInit,0],'found':True},
-            3:{'name':'1-2', 'mems':[2,3], 'loc': [],'found':False},
-            4:{'name':'1-2', 'mems':[4,5], 'loc': [],'found':False},
-            5:{'name':'1-2', 'mems':[6,7], 'loc': [],'found':False},
+        # nodeData = {
+        #     1:{'name':'A-1', 'mems':False, 'loc': origin,'found':True},
+        #     2:{'name':'E-1', 'mems':[1], 'loc': [xInit,0],'found':True},
+        #     3:{'name':'1-2', 'mems':[2,3], 'loc': [],'found':False},
+        #     4:{'name':'1-2', 'mems':[4,5], 'loc': [],'found':False},
+        #     5:{'name':'1-2', 'mems':[6,7], 'loc': [],'found':False},
             
-        }
+        # }
+        nodeData = data.getNodeData()
+        nodeData[1]['loc'] = origin
+        nodeData[2]['loc'] = [xInit,0]
 
         for i in range(3,len(nodeData)+1):
             n = nodeData[i]

@@ -213,3 +213,26 @@ def circle_intersections(x, origin, radius):
     
     # Return the intersection points
     return [(x, y1), (x, y2)]
+
+
+def removeDups(data):
+    singleDesigns = {}
+    for k,v in data.items():
+        m = []
+        memData = v['memberInfo']
+        for i in range(1,len(memData)+1):
+            m.append(memData[i]['slope'])
+        
+        
+        if len(singleDesigns)>1:
+            newDesign = True
+            for d,md in singleDesigns.items():
+                if m == md: 
+                    newDesign = False
+            if newDesign:
+                singleDesigns[k] = m      
+            
+        else:
+            singleDesigns[k] = m
+    
+    return singleDesigns  

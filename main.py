@@ -3,6 +3,8 @@ import data
 import forceDiagramGen
 import stockAssignment
 import drawTruss
+import func
+import calcs
 
 import matplotlib.pyplot as plt
 
@@ -13,10 +15,12 @@ nodeDict, stock, polygons, loadNodes, mems, stockLib = data.getInitial()
 cont  = True
 fig, ax = plt.subplots()
 xi = 0
-for j in range(10):
+macroData = {}
+ind = 1
+for j in range(5):
     yi = 0
     
-    for i in range(10):
+    for i in range(5):
         
         while cont:
 
@@ -28,21 +32,36 @@ for j in range(10):
                 print("Could not build -- Trying again\n")
             
             else:
+                macroData[ind] = {
+                    'memberInfo': memData,
+                    'polygons': polygons,
+                    'nodeDict': nodeData,
+                    'stockLib': stockLib,
+                    'assignment': assign
+                }
+                ind += 1
                 print('--------------------------------------')
                 print('Success Found!')
                 print(assign)
                 fig,ax = drawTruss.draw_truss2(memData, nodeData,fig, ax,xi,yi)
                 cont = False
         cont = True
-        yi += 10
-    xi+=15
+        xi+=15
+    yi += 10
 
+singleDesigns = func.removeDups(macroData)
+
+for k,v in singleDesigns.items():
+    print(f'Design {k} ----  {v}')
+# print(singleDesigns)
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.xlim(-10, 160)
 plt.ylim(-5,120)
 ax.set_aspect('equal', 'box')
 plt.title('Truss Structure')
-plt.grid(True)
+plt.grid(False)
 plt.show()
 print("WHO IS DOG")
+macroData = calcs.getMetrics(macroData)
+data.writeResults(macroData)

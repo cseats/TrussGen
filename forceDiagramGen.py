@@ -64,7 +64,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                         #     print(ans1)
                     else:
                         [ans1,ans2] = func.find_intersection(*nodeDict[n1], r1*mod, *nodeDict[n2], r2)
-                        mod2 = 0
+                        mod2 = 1
                     x1, y1 = nodeDict[p['neighbors'][0]]
                     x2, y2 = nodeDict[p['neighbors'][1]] #EXT poly
                     
@@ -86,7 +86,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                     else: 
                         mod -= 0.01
                         
-                        if mod<0.5:
+                        if mod<0.2:
                             modify = False
             else:
                 break
@@ -94,10 +94,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
         if proceed:
             i += 1
             iterationsLocal = 0
-            # print(f'This is i: {i}\n')
-            
-            
-            
+
             if i > nodeIssue and nodeIssue!=0:
                 nodeIssue = 0
                 stepNum = 0

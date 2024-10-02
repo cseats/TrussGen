@@ -41,7 +41,7 @@ def getInitial():
             }
         else:
             stockLib[rows['force']]['members'].append(rows['length'])
-    loading = [-2,-2,-2]
+    loading = [-1,-1,-1, -1, -1]
 
     reaction = abs(sum(loading))
     print(reaction)
@@ -69,7 +69,7 @@ def getInitial():
     polygons = {
         
         '1':{'type':'bot',
-            'neighbors':['a','e'],
+            'neighbors':['a','g'],
             'angles':[[80,60],[360,0]],
 
             'ang1Crit':[[75,5],False],
@@ -90,7 +90,7 @@ def getInitial():
             },
         
         '3':{'type':'bot',
-            'neighbors':['2','e'],
+            'neighbors':['2','g'],
             'angles':[[75,15],[360,0]],
             
             'ang1Crit':[[120,10],False],
@@ -98,6 +98,33 @@ def getInitial():
             'prevAng1Sign':-1,
             'prevAng2Sign':1,
             'prevAng1Loc':'high'},
+        
+        '4':{'type':'top',
+            'neighbors':['3','c'],
+            'angles':[[100,70],[225,135]],
+            
+            'ang1Crit':[[100,30],False],
+            'ang2Crit':[[75,0],[180,115]],
+            'prevAng1Sign':+1,
+            'prevAng2Sign':1,
+            'prevAng1Loc':'low'
+            },
+        
+        '5':{'type':'bot',
+            'neighbors':['4','g'],
+            'angles':[[75,15],[360,0]],
+            
+            'ang1Crit':[[120,10],False],
+            'ang2Crit':[[360,0],False],
+            'prevAng1Sign':-1,
+            'prevAng2Sign':1,
+            'prevAng1Loc':'high'},
+        
+        
+        
+        
+        
+        
         
         # '1':{'type':'end',
         #      'neighbors':['a','d']},
@@ -108,23 +135,35 @@ def getInitial():
 
 def getMem():
     memData = {
-    1:{'name':'1-e', 'start':1,'end':2,'slope':False},
+    1:{'name':'1-g', 'start':1,'end':2,'slope':False},
     2:{'name':'1-a', 'start':1,'end':3,'slope':False},
     3:{'name':'2-1', 'start':2,'end':3,'slope':False},
     4:{'name':'2-b', 'start':3,'end':4,'slope':False},
     5:{'name':'3-2', 'start':2,'end':4,'slope':False},
-    6:{'name':'3-e', 'start':2,'end':5,'slope':False},
-    7:{'name':'3-4', 'start':4,'end':5,'slope':False, 'r':0.805,'mod':1},
+    6:{'name':'3-g', 'start':2,'end':5,'slope':False},
+    
+    7:{'name':'4-3', 'start':4,'end':5,'slope':False},
+    8:{'name':'4-c', 'start':4,'end':6,'slope':False},
+    9:{'name':'5-4', 'start':5,'end':6,'slope':False},
+    10:{'name':'5-g', 'start':5,'end':7,'slope':False},
+    
+    
+    11:{'name':'5-6', 'start':6,'end':7,'slope':False, 'r':0.805,'mod':1},
     
     }
     
     memSym = {
-        8:{'symMem':5,'nodes':[4,7]},
-        9:{'symMem':5,'nodes':[4,6],},
-        10:{'symMem':6,'nodes':[5,6],},
-        11:{'symMem':3,'nodes':[6,7],},
-        12:{'symMem':2,'nodes':[7,8],},
-        13:{'symMem':1,'nodes':[6,8]},
+        12:{'symMem':8,'nodes':[6,8]},
+        13:{'symMem':9,'nodes':[6,9],},
+        14:{'symMem':10,'nodes':[7,9],},
+        15:{'symMem':7,'nodes':[8,9],},
+        16:{'symMem':4,'nodes':[8,10],},
+        17:{'symMem':5,'nodes':[8,11]},
+        18:{'symMem':6,'nodes':[9,11]},
+        19:{'symMem':3,'nodes':[10,11]},
+        20:{'symMem':2,'nodes':[10,12]},
+        21:{'symMem':1,'nodes':[11,12]},
+        
     }
 
   
@@ -132,7 +171,11 @@ def getMem():
 
 def getNodeSym():
     
-    return  {6:2,7:3,8:1}
+    return  {8:4,
+             9:5,
+             10:3,
+             11:2,
+             12:1}
     
 def getNodeData():
     nodeData = {
@@ -141,6 +184,8 @@ def getNodeData():
             3:{'name':'1-2', 'mems':[2,3], 'loc': [],'found':False},
             4:{'name':'1-2', 'mems':[4,5], 'loc': [],'found':False},
             5:{'name':'1-2', 'mems':[6,7], 'loc': [],'found':False},
+            6:{'name':'1-2', 'mems':[8,9], 'loc': [],'found':False},
+            7:{'name':'1-2', 'mems':[10,11], 'loc': [],'found':False},
             
         }
     return nodeData
@@ -152,7 +197,7 @@ def writeResults(data):
     
     name = "designResults.csv"
     # Write the dictionary to CSV
-    headers = ['wastedVol','volume','cutOff','utilization','fTimesLengthSum']
+    headers = ['designNumber','wastedVol','volume','cutOff','utilization','fTimesLengthSum']
     
     with open(name, mode='w', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=headers)

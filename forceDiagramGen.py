@@ -6,6 +6,7 @@ import drawTruss
 import stockAssignment
 
 import random
+import math
 
 nodeDict, stock, polygons, loadNodes, mems, stockLib = data.getInitial()
 
@@ -43,22 +44,22 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
             
                             if ans2:
                                 mod2_2, r2_2 = func.flat_line_2_force(ans2[0],nodeDict[n2][0],stock)
-
+                                # coin = math.ceiling(random.random()*2)
                                 if mod2_2>mod2 and mod2_2 and r2_2:
                                     mod2,r2 = mod2_2, r2_2
                                     ans1 = ans2
                                     ans2 = False
                                     print(ans1)
 
-                    elif i == 2:
+                    elif i == 2 or i == 4:
                         [ans1,ans2] = func.circle_intersections(nodeDict[n1][0], nodeDict[n2], r1*mod)
                         if ans1:
                             mod2, r2 = func.flat_line_2_force(ans1[1],nodeDict[n1][1],stock)
                             
                             if  mod2 and ans2:
                                 mod2_2, r2_2 = func.flat_line_2_force(ans2[1],nodeDict[n1][1],stock)
-
-                                if mod2_2>mod2:
+                                # coin = math.ceil(random.random()*2)
+                                if mod2_2>mod2 :
                                     mod2,r2 = mod2_2, r2_2
                         # if ans1:
                         #     print(ans1)
@@ -92,6 +93,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                 break
         iterationsLocal +=1
         if proceed:
+            print(f'proceed -- i = {i}')
             i += 1
             iterationsLocal = 0
 
@@ -104,7 +106,6 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                 if nodeIssue == 0:
                     nodeIssue = i
                 stepBack = True
-                
                 if nodeIssue<i and nodeIssue>0:
                     nodeIssue = i
                     stepNum = 1
@@ -112,6 +113,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                     stepNum+=1
                 
                 i -= stepNum
+                print(f'>>>Stepping Back -- i = {i}')
                 iterationsLocal = 0
                 if i<1:
                     i = 1
@@ -120,10 +122,11 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
         
         
         
-        if iterationsTotal >100 or i == 4:
+        if iterationsTotal >100 or i == 6:
             cont = False
 
 
+    # plotFuncs.forceDiagram(nodeDict,polygons)
     nodeData, memData = drawTruss.forcediagram2Truss(polygons,mems,nodeDict)
     # print(mems)
     # print(polygons['1'])
@@ -133,4 +136,3 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
     return memData,nodeData, stockLib
     assign = stockAssignment.assignPrep(memData,stockLib)
     print(assign)
-    # plotFuncs.forceDiagram(nodeDict,polygons)

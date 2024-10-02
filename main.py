@@ -17,10 +17,10 @@ fig, ax = plt.subplots()
 xi = 0
 macroData = {}
 ind = 1
-for j in range(5):
+for j in range(10):
     yi = 0
     
-    for i in range(5):
+    for i in range(10):
         
         while cont:
 
@@ -46,10 +46,10 @@ for j in range(5):
                 fig,ax = drawTruss.draw_truss2(memData, nodeData,fig, ax,xi,yi)
                 cont = False
         cont = True
-        xi+=15
-    yi += 10
+        yi += 10
+    xi+=15
 
-singleDesigns = func.removeDups(macroData)
+singleDesigns, macroData = func.removeDups(macroData)
 
 for k,v in singleDesigns.items():
     print(f'Design {k} ----  {v}')

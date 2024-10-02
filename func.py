@@ -229,10 +229,11 @@ def removeDups(data):
             for d,md in singleDesigns.items():
                 if m == md: 
                     newDesign = False
+                    data[k]['designNumber'] = d
             if newDesign:
                 singleDesigns[k] = m      
             
         else:
             singleDesigns[k] = m
     
-    return singleDesigns  
+    return singleDesigns, data

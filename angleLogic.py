@@ -2,7 +2,7 @@ import func
 
 
 def anglePass(ang1,ang1Crit,ang2,ang2Crit,p,prevAng1,prevAng2):
-    phi = 5
+    phi = 10
     intFound = False 
     prevAngle = p['prevAng1Loc']
     sign1 = p['prevAng1Sign']

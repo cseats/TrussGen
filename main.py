@@ -14,20 +14,21 @@ nodeDict, stock, polygons, loadNodes, mems, stockLib = data.getInitial()
 
 cont  = True
 fig, ax = plt.subplots()
-xi = 0
+yi = 0
 macroData = {}
 ind = 1
 for j in range(5):
-    yi = 0
+    xi = 0
     
     for i in range(5):
         
         while cont:
 
-            memData,nodeData,stockLib = forceDiagramGen.create(nodeDict, stock, polygons, loadNodes, mems, stockLib)
-
-            assign = stockAssignment.assignPrep(memData,stockLib)
-            
+            memData,nodeData,stockLib, build = forceDiagramGen.create(nodeDict, stock, polygons, loadNodes, mems, stockLib)
+            if build:
+                assign = stockAssignment.assignPrep(memData,stockLib)
+            else:
+                assign = False
             if not assign:
                 print("Could not build -- Trying again\n")
             
@@ -41,7 +42,7 @@ for j in range(5):
                 }
                 ind += 1
                 print('--------------------------------------')
-                print('Success Found!')
+                print(f'>>> Success Found! Design Number: {ind}')
                 print(assign)
                 fig,ax = drawTruss.draw_truss2(memData, nodeData,fig, ax,xi,yi)
                 cont = False

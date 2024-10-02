@@ -230,16 +230,20 @@ def forcediagram2Truss(polygons,mems,nodeDict):
         
         if abs(trussLen-targetLen)<0.01:
             cont = False
+            build = True
+        elif abs(trussLen-targetLen)>20:
+            cont = False
+            build = False
         else:
             if abs(trussLen-targetLen)<2:
-                xInit += 0.001
+                xInit += 0.0001
             else:
-                xInit += 0.1
+                xInit += 0.01
         
     # draw_truss2(memData, nodeData)
     memData = calcMemLen(memData,nodeData)
     # print("DOG")
-    return nodeData,memData
+    return nodeData,memData,build
 
 def calcMemLen(mem,nodes):
     

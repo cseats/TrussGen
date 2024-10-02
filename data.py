@@ -41,7 +41,7 @@ def getInitial():
             }
         else:
             stockLib[rows['force']]['members'].append(rows['length'])
-    loading = [-2,-2,-2]
+    loading = [-1,-1,-1]
 
     reaction = abs(sum(loading))
     print(reaction)
@@ -72,7 +72,7 @@ def getInitial():
             'neighbors':['a','e'],
             'angles':[[80,60],[360,0]],
 
-            'ang1Crit':[[75,5],False],
+            'ang1Crit':[[80,30],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':1,
             'prevAng2Sign':1,
@@ -82,8 +82,10 @@ def getInitial():
             'neighbors':['1','b'],
             'angles':[[100,70],[225,135]],
             
-            'ang1Crit':[[100,30],False],
-            'ang2Crit':[[75,0],[180,115]],
+            'ang1Crit':[[145,90],False],
+            'ang2Crit':[[30,0],[185,170]],
+            # 'ang2Crit':[[15,0],[180,170]],
+            # 'ang2Crit':[[360,0],[360,0]],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'
@@ -93,7 +95,7 @@ def getInitial():
             'neighbors':['2','e'],
             'angles':[[75,15],[360,0]],
             
-            'ang1Crit':[[120,10],False],
+            'ang1Crit':[[80,25],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':-1,
             'prevAng2Sign':1,
@@ -150,7 +152,7 @@ def getNodeData():
 
 def writeResults(data):
     
-    name = "designResults.csv"
+    name = "designResults - 6p.csv"
     # Write the dictionary to CSV
     headers = ['wastedVol','volume','cutOff','utilization','fTimesLengthSum']
     

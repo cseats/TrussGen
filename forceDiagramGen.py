@@ -50,7 +50,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                                     ans2 = False
                                     print(ans1)
 
-                    elif i == 2:
+                    elif i == 5:
                         [ans1,ans2] = func.circle_intersections(nodeDict[n1][0], nodeDict[n2], r1*mod)
                         if ans1:
                             mod2, r2 = func.flat_line_2_force(ans1[1],nodeDict[n1][1],stock)
@@ -72,7 +72,9 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                     for a in [ans1]:
                         if a:#p['type'] == flat:
                             intFound,ang1,ang2  = angleLogic.evaluate_sol(a,x1,y1,x2,y2,polygons,i)
-
+                        elif ans2:
+                            intFound2,ang12,ang22  = angleLogic.evaluate_sol(ans2,x1,y1,x2,y2,polygons,i)
+                            print('d')
                         else:
                             intFound = False
 
@@ -86,13 +88,14 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                     else: 
                         mod -= 0.01
                         
-                        if mod<0.2:
+                        if mod<0.8:
                             modify = False
             else:
                 break
         iterationsLocal +=1
         if proceed:
             i += 1
+            # print(f'>>Int found ---- i = {i}')
             iterationsLocal = 0
 
             if i > nodeIssue and nodeIssue!=0:
@@ -100,11 +103,11 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
                 stepNum = 0
             
         else:  
-            if iterationsLocal > 20:
+            if iterationsLocal > 40:
                 if nodeIssue == 0:
                     nodeIssue = i
                 stepBack = True
-                
+                # print(f'>>>>>>>  STEP BACK ---- i = {i}')
                 if nodeIssue<i and nodeIssue>0:
                     nodeIssue = i
                     stepNum = 1
@@ -124,13 +127,13 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
             cont = False
 
 
-    nodeData, memData = drawTruss.forcediagram2Truss(polygons,mems,nodeDict)
+    nodeData, memData,build = drawTruss.forcediagram2Truss(polygons,mems,nodeDict)
     # print(mems)
     # print(polygons['1'])
     # print(polygons['2'])
     # print(polygons['3'])
     # print(nodeDict)
-    return memData,nodeData, stockLib
+    return memData,nodeData, stockLib,build
     assign = stockAssignment.assignPrep(memData,stockLib)
     print(assign)
     # plotFuncs.forceDiagram(nodeDict,polygons)

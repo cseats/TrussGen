@@ -156,10 +156,11 @@ def find_circle_line_intersection(x0, y0, r, y_line, plot=False):
         plt.title('Circle and Line Intersection')
         plt.legend()
         plt.grid(True)
+        print(x1,y_line)
+        print(x2,y_line)
         plt.show()
-    
     if x2<0 and x1<0:
-        [[x1,y_line],[x2, y_line]]
+        return [[x1,y_line],[x2, y_line]]
     if x2<0:
         return [[x2, y_line],False]#intersection_points
     if x1<0:

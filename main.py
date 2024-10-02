@@ -24,11 +24,14 @@ for j in range(10):
         
         while cont:
 
-            memData,nodeData,stockLib = forceDiagramGen.create(nodeDict, stock, polygons, loadNodes, mems, stockLib)
+            memData,nodeData,stockLib, build = forceDiagramGen.create(nodeDict, stock, polygons, loadNodes, mems, stockLib)
 
-            assign = stockAssignment.assignPrep(memData,stockLib)
+            if build:
+                assign = stockAssignment.assignPrep(memData,stockLib)
+            else:
+                assign = False
             
-            if not assign:
+            if not assign :
                 print("Could not build -- Trying again\n")
             
             else:
@@ -41,7 +44,7 @@ for j in range(10):
                 }
                 ind += 1
                 print('--------------------------------------')
-                print('Success Found!')
+                print(f'>>> Success Found! Design # {ind}')
                 print(assign)
                 fig,ax = drawTruss.draw_truss2(memData, nodeData,fig, ax,xi,yi)
                 cont = False

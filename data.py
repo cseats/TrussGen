@@ -41,7 +41,7 @@ def getInitial():
             }
         else:
             stockLib[rows['force']]['members'].append(rows['length'])
-    loading = [-1,-1,-1, -1, -1]
+    loading = [-0.6,-0.6,-0.6, -0.6, -0.6]
 
     reaction = abs(sum(loading))
     print(reaction)
@@ -72,7 +72,7 @@ def getInitial():
             'neighbors':['a','g'],
             'angles':[[80,60],[360,0]],
 
-            'ang1Crit':[[75,5],False],
+            'ang1Crit':[[80,30],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':1,
             'prevAng2Sign':1,
@@ -82,8 +82,8 @@ def getInitial():
             'neighbors':['1','b'],
             'angles':[[100,70],[225,135]],
             
-            'ang1Crit':[[100,30],False],
-            'ang2Crit':[[75,0],[180,115]],
+            'ang1Crit':[[115,60],False],
+            'ang2Crit':[[30,0],[180,160]],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'
@@ -93,7 +93,7 @@ def getInitial():
             'neighbors':['2','g'],
             'angles':[[75,15],[360,0]],
             
-            'ang1Crit':[[120,10],False],
+            'ang1Crit':[[85,45],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':-1,
             'prevAng2Sign':1,
@@ -103,8 +103,8 @@ def getInitial():
             'neighbors':['3','c'],
             'angles':[[100,70],[225,135]],
             
-            'ang1Crit':[[100,30],False],
-            'ang2Crit':[[75,0],[180,115]],
+            'ang1Crit':[[145,85],False],
+            'ang2Crit':[[20,0],[180,160]],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'
@@ -114,7 +114,7 @@ def getInitial():
             'neighbors':['4','g'],
             'angles':[[75,15],[360,0]],
             
-            'ang1Crit':[[120,10],False],
+            'ang1Crit':[[85,25],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':-1,
             'prevAng2Sign':1,

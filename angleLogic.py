@@ -1,15 +1,17 @@
 import func
 
 
-def anglePass(ang1,ang1Crit,ang2,ang2Crit,p,prevAng1,prevAng2):
+def anglePass(ang1,ang1Crit,ang2,ang2Crit,p,prevAng1,prevAng2,i):
     phi = 10
     intFound = False 
     prevAngle = p['prevAng1Loc']
     sign1 = p['prevAng1Sign']
     sign2 = p['prevAng2Sign']
+    if i == 5:
+        pass
     if prevAngle == 'low':
 
-        if ang1 <= ang1Crit[0][0] and ang1 >= sign1*phi + prevAng1:
+        if ang1 <= ang1Crit[0][0] and ang1 >= sign1*phi + prevAng1 and ang1 >= ang1Crit[0][1]:
             if ang1Crit[1]:
                 if ang1 <= ang1Crit[1][0] and ang1>= ang1Crit[1][1]:
                     intFound = True
@@ -28,7 +30,7 @@ def anglePass(ang1,ang1Crit,ang2,ang2Crit,p,prevAng1,prevAng2):
     elif prevAngle == 'high':
 
         # if ang1 <=sign1*phi +prevAng1 and ang1>= ang1Crit[0][1] and ang1 >= sign2*phi +prevAng2:
-        if ang1 <=sign1*phi +prevAng1 and ang1>= ang1Crit[0][1]:
+        if ang1 <=sign1*phi +prevAng1 and ang1>= ang1Crit[0][1] and ang1<= ang1Crit[0][0]:
             if ang1Crit[1]:
                 if ang1 <= ang1Crit[1][0] and ang1>= ang1Crit[1][1]:
                     intFound = True
@@ -86,6 +88,6 @@ def evaluate_sol(a,x1,y1,x2,y2,polygons,i):
 
     ang1Crit = polygons[str(i)]['ang1Crit']
     ang2Crit = polygons[str(i)]['ang2Crit']
-    intFound = anglePass(ang1,ang1Crit,ang2,ang2Crit,polygons[str(i)],prevAng1,prevAng2)
+    intFound = anglePass(ang1,ang1Crit,ang2,ang2Crit,polygons[str(i)],prevAng1,prevAng2,i)
     
     return intFound,ang1,ang2

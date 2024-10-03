@@ -18,7 +18,7 @@ def anglePass(ang1,ang1Crit,ang2,ang2Crit,p,prevAng1,prevAng2,i):
             else:
                 intFound = True
 
-        if intFound and ang2 <= ang2Crit[0][0] and ang2>= ang2Crit[0][1] or intFound and ang2 <= ang2Crit[1][0] and ang2>= ang2Crit[1][1]:
+        if intFound and ang2 <= ang2Crit[0][0] and ang2>= ang2Crit[0][1]:# or intFound and ang2 <= ang2Crit[1][0] and ang2>= ang2Crit[1][1]:
             intFound = True
             # if ang2Crit[1]:
             #     if ang2 >= ang2Crit[1][0] and ang2 <= ang2Crit[1][1]: #switched

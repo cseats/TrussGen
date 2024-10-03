@@ -72,7 +72,7 @@ def getInitial():
             'neighbors':['a','g'],
             'angles':[[80,60],[360,0]],
 
-            'ang1Crit':[[80,30],False],
+            'ang1Crit':[[60,30],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':1,
             'prevAng2Sign':1,
@@ -84,6 +84,7 @@ def getInitial():
             
             'ang1Crit':[[115,60],False],
             'ang2Crit':[[30,0],[180,160]],
+            # 'ang2Crit':[[30,0],False],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'
@@ -105,6 +106,7 @@ def getInitial():
             
             'ang1Crit':[[145,85],False],
             'ang2Crit':[[20,0],[180,160]],
+            # 'ang2Crit':[[30,0],False],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'

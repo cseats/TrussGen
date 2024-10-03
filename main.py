@@ -46,7 +46,7 @@ for j in range(10):
                 print('--------------------------------------')
                 print(f'>>> Success Found! Design # {ind}')
                 print(assign)
-                fig,ax = drawTruss.draw_truss2(memData, nodeData,fig, ax,xi,yi)
+                # fig,ax = drawTruss.draw_truss2(memData, nodeData,fig, ax,xi,yi)
                 cont = False
         cont = True
         yi += 10
@@ -54,8 +54,31 @@ for j in range(10):
 
 singleDesigns, macroData = func.removeDups(macroData)
 
+# for k,v in singleDesigns.items():
+#     print(f'Design {k} ----  {v}')
+    
+    
+xi = 0
+yi = 0
+cnt = 1   
 for k,v in singleDesigns.items():
-    print(f'Design {k} ----  {v}')
+    # print(f'Design {k} ----  {v}')
+    memData = macroData[k]['memberInfo']
+    nodeData = macroData[k]['nodeDict']
+    
+    fig,ax = drawTruss.draw_truss2(memData, nodeData,fig, ax,xi,yi)
+    xi+= 15
+    
+    if cnt%10 == 0:
+        xi = 0
+        yi+=10
+    cnt+=1
+    
+print(f'Completed Designs -- There are {cnt} unique designs!')
+# plt.xlabel('X')
+# plt.ylabel('Y')
+plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
+
 # print(singleDesigns)
 plt.xlabel('X')
 plt.ylabel('Y')

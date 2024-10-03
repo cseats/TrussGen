@@ -139,7 +139,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
         
         
         
-        if iterationsTotal >100 or i == 6:
+        if iterationsTotal >100 or i == 8:
             cont = False
         # if i == 3:
         #     print("")

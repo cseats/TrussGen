@@ -151,7 +151,7 @@ def getSlopes(mems,nodeDict,memData):
     return memData
 def getSym(nodeData):
     symmetryMapNode = data.getNodeSym()#{6:2,7:3,8:1}
-    symLine = nodeData[7]['loc'][0]
+    symLine = nodeData[9]['loc'][0]
     for new,ref in symmetryMapNode.items():
         
         refCords = nodeData[ref]['loc']
@@ -190,7 +190,7 @@ def forcediagram2Truss(polygons,mems,nodeDict):
     cont = True
     xInit = 1
     origin = [0,0]
-    targetLen = 10
+    targetLen = 12
     while cont:
         
         
@@ -226,7 +226,7 @@ def forcediagram2Truss(polygons,mems,nodeDict):
         
         nodeData = getSym(nodeData)
         
-        trussLen = nodeData[12]['loc'][0] - nodeData[1]['loc'][0]
+        trussLen = nodeData[16]['loc'][0] - nodeData[1]['loc'][0]
         
         if abs(trussLen-targetLen)<0.01:
             cont = False

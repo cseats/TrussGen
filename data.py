@@ -244,3 +244,12 @@ def writeResults(data):
 
     
     print(f'Results are written to {name}')
+
+def getTargetLen():
+    return 12
+
+def getLastNode():
+    return 16
+def getMiddleNode():
+    return 9
+

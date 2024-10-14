@@ -20,7 +20,7 @@ elif polyNum == 10:
 else:
     raise Exception("A data file is required, none provided for the specified # of polygons.")
 
-def main():
+def main(polyNum):
     start_time = time.time()
     nodeDict, stock, polygons, loadNodes, mems, stockLib = data.getInitial()
 
@@ -103,4 +103,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(polyNum)

@@ -195,9 +195,9 @@ def getNodeData():
 
 
 
-def writeResults(data):
+def writeResults(data, polyNum):
     
-    name = "designResults.csv"
+    name = f"designResults-{polyNum}.csv"
     # Write the dictionary to CSV
     headers = ['designNumber','wastedVol','volume','cutOff','utilization','fTimesLengthSum']
     

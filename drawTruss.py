@@ -1,4 +1,4 @@
-import data
+# import data
 
 import matplotlib.pyplot as plt
 import math
@@ -122,7 +122,7 @@ def find_intersection(line1_point, line1_slope, line2_point, line2_slope):
     return (x_intersection, y_intersection)
 
 # # draw_truss(elements, nodes)
-def getSlopes(mems,nodeDict,memData):
+def getSlopes(mems,nodeDict,memData,data):
     M = {}
     
     for i in range(1,len(memData)):
@@ -149,7 +149,8 @@ def getSlopes(mems,nodeDict,memData):
         memData[i]['mod'] = mems[memData[i]['name']]['mod']
         
     return memData
-def getSym(nodeData):
+
+def getSym(nodeData, data):
     symmetryMapNode = data.getNodeSym()#{6:2,7:3,8:1}
 
 
@@ -160,7 +161,8 @@ def getSym(nodeData):
         xDelta = symLine-refCords[0]
         nodeData[new] = {"loc": [refCords[0]+xDelta*2,refCords[1]]}
     return nodeData
-def forcediagram2Truss(polygons,mems,nodeDict):
+
+def forcediagram2Truss(polygons,mems,nodeDict,data):
     # memData = {
     # 1:{'name':'1-e', 'start':1,'end':2,'slope':False},
     # 2:{'name':'1-a', 'start':1,'end':3,'slope':False},
@@ -173,7 +175,7 @@ def forcediagram2Truss(polygons,mems,nodeDict):
     # }
     memData,memSym = data.getMem()
     
-    memData = getSlopes(mems,nodeDict,memData)
+    memData = getSlopes(mems,nodeDict,memData,data)
     
     for k,v in memSym.items():
         
@@ -226,7 +228,7 @@ def forcediagram2Truss(polygons,mems,nodeDict):
                 xi,yi = find_intersection([x1,y1], m1, [x2,y2], m2)
                 nodeData[i]['loc'] = [xi,yi]
         
-        nodeData = getSym(nodeData)
+        nodeData = getSym(nodeData,data)
         
         trussLen = nodeData[data.getLastNode()]['loc'][0] - nodeData[1]['loc'][0]
         

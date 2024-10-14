@@ -1,4 +1,4 @@
-import data
+# import data
 import angleLogic
 import func
 import plotFuncs
@@ -8,9 +8,9 @@ import stockAssignment
 import random
 import math
 
-nodeDict, stock, polygons, loadNodes, mems, stockLib = data.getInitial()
+# nodeDict, stock, polygons, loadNodes, mems, stockLib = data.getInitial()
 
-def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
+def create(nodeDict, stock, polygons, loadNodes, mems, stockLib,data):
 
     cont = True
     iterationsTotal = 0
@@ -139,7 +139,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
         
         
         
-        if iterationsTotal >100 or i == 8:
+        if iterationsTotal >100 or i == data.getLastPoly():
             cont = False
         # if i == 3:
         #     print("")
@@ -150,7 +150,7 @@ def create(nodeDict, stock, polygons, loadNodes, mems, stockLib):
             # plotFuncs.forceDiagram(nodeDict,polygons)
 
     # plotFuncs.forceDiagram(nodeDict,polygons)
-    nodeData, memData, build = drawTruss.forcediagram2Truss(polygons,mems,nodeDict)
+    nodeData, memData, build = drawTruss.forcediagram2Truss(polygons,mems,nodeDict,data)
     # print(mems)
     # print(polygons['1'])
     # print(polygons['2'])

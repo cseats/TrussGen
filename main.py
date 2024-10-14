@@ -1,5 +1,4 @@
 
-import data
 import forceDiagramGen
 import stockAssignment
 import drawTruss
@@ -10,6 +9,16 @@ import matplotlib.pyplot as plt
 import time
 
 
+polyNum = 10
+
+if polyNum == 14:
+    import data14 as data
+elif polyNum == 6:
+    import data6 as data
+elif polyNum == 10:
+    import data10 as data
+else:
+    raise Exception("A data file is required, none provided for the specified # of polygons.")
 
 def main():
     start_time = time.time()
@@ -28,7 +37,7 @@ def main():
             
             while cont:
 
-                memData,nodeData,stockLib, build = forceDiagramGen.create(nodeDict, stock, polygons, loadNodes, mems, stockLib)
+                memData,nodeData,stockLib, build = forceDiagramGen.create(nodeDict, stock, polygons, loadNodes, mems, stockLib,data)
 
                 if build:
                     assign = stockAssignment.assignPrep(memData,stockLib)

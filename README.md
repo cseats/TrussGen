@@ -9,3 +9,16 @@ truss designs that have high D/C ratios and can be built from the provided stock
 
 ## Running the code:
 
+First the required packages should be downloaded, all packages are listed in the requirements.txt file.
+
+Once all the packages have been correctly installed the 'main.py' file can be run which will generate the designs.
+
+## Modifiable parameters
+
+* polyNum - Number of polygons to be in the design (options are only 6, 10 and 14) defined in 'main.py'
+
+* 'ang[1,2]Crit' - 2D array of acceptable angle criteria. Note that modifying these numbers may result in designs that are not feasible. Located in the polygons object that
+* is defined in the data<Polygon #>.py files. Each polygon has its own set of angular criteria and can be directly edited.
+
+## Comments
+I am still commenting on the code, so if something doesnt make sense reach out.

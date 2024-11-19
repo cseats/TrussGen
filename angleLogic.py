@@ -67,8 +67,7 @@ def evaluate_sol(a,x1,y1,x2,y2,polygons,i):
     xi,yi = a
 
     #determine angles for intersections
-    angleCrit1 = polygons[str(i)]['angles'][0]
-    angleCrit2 = polygons[str(i)]['angles'][1]
+
     if y1>=yi:
         ang1 = func.calculate_counterclockwise_angle([xi, yi], [x1, y1], plot=False)
     else:

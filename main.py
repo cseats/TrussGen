@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import time
 
 
-polyNum = 10
+polyNum = 6
 
 if polyNum == 14:
     import data14 as data

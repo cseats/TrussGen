@@ -70,8 +70,6 @@ def getInitial():
         
         '1':{'type':'bot',
             'neighbors':['a','e'],
-            'angles':[[80,60],[360,0]],
-
             'ang1Crit':[[80,30],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':1,
@@ -80,12 +78,8 @@ def getInitial():
         
         '2':{'type':'top',
             'neighbors':['1','b'],
-            'angles':[[100,70],[225,135]],
-            
             'ang1Crit':[[145,90],False],
             'ang2Crit':[[30,0],[185,170]],
-            # 'ang2Crit':[[15,0],[180,170]],
-            # 'ang2Crit':[[360,0],[360,0]],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'
@@ -93,16 +87,12 @@ def getInitial():
         
         '3':{'type':'bot',
             'neighbors':['2','e'],
-            'angles':[[75,15],[360,0]],
-            
             'ang1Crit':[[80,25],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':-1,
             'prevAng2Sign':1,
             'prevAng1Loc':'high'},
-        
-        # '1':{'type':'end',
-        #      'neighbors':['a','d']},
+
     }
     
     return nodeDict, stock, polygons, loadNodes, mems,stockLib
@@ -162,8 +152,6 @@ def writeResults(data):
         for k,v in data.items():
             subset_dict = {key: v[key] for key in headers if key in v}
             row = [k]
-            # for h in headers[1:]:
-            #     row.append(v[h])
             writer.writerow(subset_dict)
 
     

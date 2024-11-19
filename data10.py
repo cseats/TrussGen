@@ -70,8 +70,6 @@ def getInitial():
         
         '1':{'type':'bot',
             'neighbors':['a','g'],
-            'angles':[[80,60],[360,0]],
-
             'ang1Crit':[[60,30],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':1,
@@ -80,11 +78,8 @@ def getInitial():
         
         '2':{'type':'top',
             'neighbors':['1','b'],
-            'angles':[[100,70],[225,135]],
-            
             'ang1Crit':[[115,60],False],
             'ang2Crit':[[30,0],[180,160]],
-            # 'ang2Crit':[[30,0],False],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'
@@ -92,8 +87,6 @@ def getInitial():
         
         '3':{'type':'bot',
             'neighbors':['2','g'],
-            'angles':[[75,15],[360,0]],
-            
             'ang1Crit':[[85,45],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':-1,
@@ -102,11 +95,8 @@ def getInitial():
         
         '4':{'type':'top',
             'neighbors':['3','c'],
-            'angles':[[100,70],[225,135]],
-            
             'ang1Crit':[[145,85],False],
             'ang2Crit':[[20,0],[180,160]],
-            # 'ang2Crit':[[30,0],False],
             'prevAng1Sign':+1,
             'prevAng2Sign':1,
             'prevAng1Loc':'low'
@@ -114,22 +104,11 @@ def getInitial():
         
         '5':{'type':'bot',
             'neighbors':['4','g'],
-            'angles':[[75,15],[360,0]],
-            
             'ang1Crit':[[85,25],False],
             'ang2Crit':[[360,0],False],
             'prevAng1Sign':-1,
             'prevAng2Sign':1,
-            'prevAng1Loc':'high'},
-        
-        
-        
-        
-        
-        
-        
-        # '1':{'type':'end',
-        #      'neighbors':['a','d']},
+            'prevAng1Loc':'high'}
     }
     
     return nodeDict, stock, polygons, loadNodes, mems,stockLib
@@ -143,13 +122,10 @@ def getMem():
     4:{'name':'2-b', 'start':3,'end':4,'slope':False},
     5:{'name':'3-2', 'start':2,'end':4,'slope':False},
     6:{'name':'3-g', 'start':2,'end':5,'slope':False},
-    
     7:{'name':'4-3', 'start':4,'end':5,'slope':False},
     8:{'name':'4-c', 'start':4,'end':6,'slope':False},
     9:{'name':'5-4', 'start':5,'end':6,'slope':False},
     10:{'name':'5-g', 'start':5,'end':7,'slope':False},
-    
-    
     11:{'name':'5-6', 'start':6,'end':7,'slope':False, 'r':0.805,'mod':1},
     
     }
@@ -207,8 +183,6 @@ def writeResults(data):
         for k,v in data.items():
             subset_dict = {key: v[key] for key in headers if key in v}
             row = [k]
-            # for h in headers[1:]:
-            #     row.append(v[h])
             writer.writerow(subset_dict)
 
     
